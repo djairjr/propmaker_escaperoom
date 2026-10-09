@@ -31,3 +31,7 @@ spiffs_image.bin
 # OS noise
 .DS_Store
 Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
