@@ -41,9 +41,9 @@ Install via **Arduino Library Manager** (Sketch > Include Library > Manage Libra
 | ADS1115_WE | `ADS1115_WE` |
 | PCA9685 | `PCA9685` |
 | Servo | `Servo` |
-| RotaryDial | `RotaryDial` |
 
-Two dependencies are **not** in the Arduino Library Manager and must be installed by hand:
+Three dependencies have to be installed by hand, all of them **not** installable from the
+Arduino Library Manager:
 
 - **`arduino-audio-tools`** — the audio pipeline (`AudioTools.h`, MP3 over I2S).
   Clone it from <https://github.com/pschatzmann/arduino-audio-tools>:
@@ -55,6 +55,14 @@ Two dependencies are **not** in the Arduino Library Manager and must be installe
 
 - **`arduino-libhelix`** — the MP3 decoder used by the audio pipeline, from
   <https://github.com/pschatzmann/arduino-libhelix>, with the same procedure.
+
+- **`RotaryDial`** — the pulse-dial library behind `RotaryDialReader`
+  (`begin(pin, ROTARYDIAL_MECHANICAL | ROTARYDIAL_OPTICAL)`, `setDebounce`, `setMaxGap`,
+  `setDigitEnd`, `reset`). ⚠️ The library that goes **by this name in the Arduino Library
+  Manager is a different project**, by another author, which has neither the optical-encoder
+  support nor this API: installing it by name breaks the build with `'begin' is not a member
+  of 'RotaryDial'`. The library this code needs is the customized mechanical/optical one and
+  it is **not published** — keep your copy of it next to the other libraries.
 
 ### Library Installation
 
