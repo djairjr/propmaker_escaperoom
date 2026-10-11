@@ -9,8 +9,8 @@ namespace propmaker_escaperoom {
  * Prove simple interfaces for reading entered digits.
  *
  * Supported modes (defined in the library):
- *   ROTARYDIAL_MECHANICAL (default) — contatos metalicos
- *   ROTARYDIAL_OPTICAL            — encoder otico
+ *   ROTARYDIAL_UNIFIED_MECHANICAL (default) — contatos metalicos
+ *   ROTARYDIAL_UNIFIED_OPTICAL            — encoder otico
  *
  * External dependence:
  *   Biblioteca RotaryDial v1.0.0+ em Documents/Arduino/libraries/RotaryDial
@@ -20,9 +20,9 @@ namespace propmaker_escaperoom {
  *   - Conecte o outro terminal ao GND
  *   - Use INPUT_PULLUP ou INPUT (dependendo do modelo de telefone)
  */
-class RotaryDialReader {
+class RotaryDialUnifiedReader {
  public:
-  RotaryDialReader() : initialized_(false), lastPin_(0) {}
+  RotaryDialUnifiedReader() : initialized_(false), lastPin_(0) {}
 
   /**
    * Initializes the rotary disk reader in the standard mode (MECHANICAL).

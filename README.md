@@ -2,7 +2,7 @@
 
 Engine library for Escape Room puzzles based on the **Adafruit PropMaker Feather RP2040** platform.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)]()
+[![Version](https://img.shields.io/badge/version-2.0.0-blue)]()
 [![Platform](https://img.shields.io/badge/platform-RP2040-orange)]()
 
 ---
@@ -11,12 +11,14 @@ Engine library for Escape Room puzzles based on the **Adafruit PropMaker Feather
 
 - [Installation](#installation)
 - [Architecture](#architecture)
+- [Design notes](#design-notes)
 - [Supported Hardware](#supported-hardware)
 - [Full API Reference](#full-api-reference)
 - [Usage Examples](#usage-examples)
 - [FreeRTOS](#freertos)
 - [Audio Format](#audio-format)
 - [Troubleshooting](#troubleshooting)
+- [Support](#support)
 
 ---
 
@@ -28,12 +30,44 @@ Install via **Arduino Library Manager** (Sketch > Include Library > Manage Libra
 
 | Library | Name in Manager |
 |------------|---------------------|
-| audio-tools | `arduino-audio-tools` |
-| arduino-libhelix | `arduino-libhelix` |
+| ArduinoJson | `ArduinoJson` |
+| IoAbstraction | `IoAbstraction` |
+| TaskManagerIO | `TaskManagerIO` |
 | Adafruit LIS3DH | `Adafruit LIS3DH` |
 | Adafruit NeoPixel | `Adafruit NeoPixel` |
+| Adafruit LED Backpack Library | `Adafruit LED Backpack Library` |
 | Adafruit BusIO | `Adafruit BusIO` |
+| Adafruit PN532 | `Adafruit PN532` |
+| ADS1115_WE | `ADS1115_WE` |
+| PCA9685 | `PCA9685` |
 | Servo | `Servo` |
+
+Three dependencies have to be installed by hand, all of them **not** installable from the
+Arduino Library Manager:
+
+- **`arduino-audio-tools`** — the audio pipeline (`AudioTools.h`, MP3 over I2S).
+  Clone it from <https://github.com/pschatzmann/arduino-audio-tools>:
+
+  ```
+  cd <arduino>/libraries
+  git clone https://github.com/pschatzmann/arduino-audio-tools.git
+  ```
+
+- **`arduino-libhelix`** — the MP3 decoder used by the audio pipeline, from
+  <https://github.com/pschatzmann/arduino-libhelix>, with the same procedure.
+
+- **`RotaryDialUnified`** — the pulse-dial library behind `RotaryDialUnifiedReader`
+  (`begin(pin, ROTARYDIAL_UNIFIED_MECHANICAL | ROTARYDIAL_UNIFIED_OPTICAL)`, `setDebounce`, `setMaxGap`,
+  `setDigitEnd`, `reset`), which reads both the mechanical dial and the optical encoder disc.
+  It is **not in the Arduino Library Manager**. The Manager does have a `RotaryDial` (0.0.1) — the
+  original mechanical-only project this one derives from — but it has neither the optical-encoder
+  support nor this API, and installing it does not provide our header: the build stops with
+  `fatal error: RotaryDialUnified.h: No such file or directory`. Clone the right one:
+
+  ```
+  cd <arduino>/libraries
+  git clone https://github.com/djairjr/RotaryDialUnified.git
+  ```
 
 ### Library Installation
 
@@ -46,7 +80,7 @@ Install via **Arduino Library Manager** (Sketch > Include Library > Manage Libra
 Open the **LibrarySmokeTest** example and compile it:
 
 ```
-Arduino IDE: File > Examples > PropMaker EscapeRoom > LibrarySmokeTest
+Arduino IDE: File > Examples > PropMaker EscapeRoom > Hardware_Tests > LibrarySmokeTest
 ```
 
 ---
@@ -92,6 +126,35 @@ void loop() {
     // Your logic here
 }
 ```
+
+---
+
+## Design notes
+
+### An I2C-first build
+
+A puzzle needs far more inputs and outputs than the board has GPIO pins: buttons, sensors,
+locks, relays, LEDs, keypads, a display. This library is therefore designed for a build wired
+around **I2C** rather than around the few free pins — two pins (SDA/SCL) can carry the whole
+installation: the I/O expanders (PCF8574/PCF8575 through IoAbstraction), the HT16K33 display,
+the PCA9685 PWM driver behind servos and dimmers, the ADS1115 analog inputs, the PN532 NFC
+reader and the LIS3DH accelerometer are all I2C devices.
+
+`Hardware::begin()` runs `Wire.begin()` and then a full I2C scan, and every `hw.hasX()` flag
+comes from that scan, so a sketch adapts to the hardware that is physically there; the full
+address map is under [Supported Hardware](#supported-hardware). Adding a peripheral costs an
+I2C address, not a GPIO pin — which is what keeps a puzzle box buildable once the board has
+run out of free pins.
+
+### Home Assistant
+
+This library has no MQTT/Home Assistant stack of its own: on the RP2040 the puzzles talk to
+each other over the RS485 bus (`hw.network()`, `Rs485Bus`, `Rs485Payload`). The Home
+Assistant integration lives in the ESP32 sibling library,
+[`esp32_escaperoom`](https://github.com/djairjr/esp32_escaperoom), which replaces the RS485
+bus with MQTT and HA auto-discovery for the same purpose: so that the **game automation**
+(puzzle state, locks, timers, sequences) and the **room automation** (cameras, lights, sound,
+doors) can be managed from a single place, the puzzle being just another device of the room.
 
 ---
 
@@ -1073,7 +1136,7 @@ bit_rate=128000
 # Compile with arduino-cli for diagnostics
 arduino-cli compile \
   --fqbn rp2040:rp2040:adafruit_feather_prop_maker \
-  examples/LibrarySmokeTest/LibrarySmokeTest.ino
+  examples/Hardware_Tests/LibrarySmokeTest/LibrarySmokeTest.ino
 ```
 
 Check that all dependencies are installed (see the [Installation](#installation) section).
@@ -1089,6 +1152,14 @@ Check that all dependencies are installed (see the [Installation](#installation)
 
 ---
 
+## Support
+
+This library is maintained by **Nicolau dos Brinquedos** (Djair Guilherme da Silva Junior).
+If it saves you time in a build, you can buy me a coffee:
+<https://buymeacoffee.com/nicolaudosbrinquedos>
+
+---
+
 ## License
 
 MIT License - See the LICENSE file at the root of the project.
@@ -1100,7 +1171,7 @@ MIT License - See the LICENSE file at the root of the project.
 - [Adafruit PropMaker Documentation](https://learn.adafruit.com/adafruit-rp2040-prop-maker-feather)
 - [arduino-audio-tools Documentation](https://github.com/pschatzmann/arduino-audio-tools)
 - [arduino-libhelix (MP3 Decoder)](https://github.com/pschatzmann/arduino-libhelix)
-- [IoAbstraction Library](https://github.com/DaveChallenger/IoAbstraction)
+- [IoAbstraction Library](https://github.com/TcMenu/IoAbstraction)
 
 ---
 
