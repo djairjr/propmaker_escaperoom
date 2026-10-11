@@ -9,8 +9,8 @@ namespace propmaker_escaperoom {
  * Prove simple interfaces for reading entered digits.
  *
  * Supported modes (defined in the library):
- *   ROTARYDIAL_MECHANICAL (default) — contatos metalicos
- *   ROTARYDIAL_OPTICAL            — encoder otico
+ *   ROTARYDIAL_UNIFIED_MECHANICAL (default) — contatos metalicos
+ *   ROTARYDIAL_UNIFIED_OPTICAL            — encoder otico
  *
  * External dependence:
  *   Biblioteca RotaryDial v1.0.0+ em Documents/Arduino/libraries/RotaryDial

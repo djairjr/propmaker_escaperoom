@@ -69,33 +69,30 @@ cd <arduino>/libraries
 git clone https://github.com/pschatzmann/arduino-libhelix.git
 ```
 
-### RotaryDial (pulse dial) — NOT the same-name library in the Manager
+### RotaryDialUnified (pulse dial) — NOT in the Library Manager
 
 **Why:** `RotaryDialReader` needs the pulse-dial library with this API:
 
 ```cpp
-RotaryDial::begin(pin, ROTARYDIAL_MECHANICAL | ROTARYDIAL_OPTICAL);
-RotaryDial::setDebounce(ms); setMaxGap(ms); setDigitEnd(ms); reset();
+RotaryDialUnified::begin(pin, ROTARYDIAL_UNIFIED_MECHANICAL | ROTARYDIAL_UNIFIED_OPTICAL);
+RotaryDialUnified::setDebounce(ms); setMaxGap(ms); setDigitEnd(ms); reset();
 ```
 
-⚠️ **The library that goes by the name `RotaryDial` in the Arduino Library Manager is a
-different project, by another author.** It has neither the optical-encoder support nor this
-API, so installing it by name gives the wrong library and the build then fails with:
+It is not published in the Arduino Library Manager, so `arduino-cli lib install RotaryDialUnified`
+finds nothing. The Manager does have a `RotaryDial` 0.0.1 by Tomas Mudrunka — the original,
+mechanical-only project this library derives from — and it is a different project: no
+optical-encoder support and not this API. Installing it does not provide our header, and the build
+stops on the first include:
 
 ```
-error: 'ROTARYDIAL_MECHANICAL' was not declared in this scope
-error: 'setDebounce' is not a member of 'RotaryDial'
+sketch.ino:1:10: fatal error: RotaryDialUnified.h: No such file or directory
 ```
 
-(Those are the errors measured when the same-name library was installed by mistake in the
-sibling `esp32_escaperoom` CI; this RP2040 library uses the same API, so it fails the same
-way.)
-
-The library this code needs is the customized mechanical/optical one. Clone it:
+The library this code needs is the mechanical/optical one. Clone it:
 
 ```bash
 cd <arduino>/libraries
-git clone https://github.com/djairjr/RotaryDial.git
+git clone https://github.com/djairjr/RotaryDialUnified.git
 ```
 
 ## Installation Verification
