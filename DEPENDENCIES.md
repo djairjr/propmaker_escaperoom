@@ -91,8 +91,12 @@ error: 'setDebounce' is not a member of 'RotaryDial'
 sibling `esp32_escaperoom` CI; this RP2040 library uses the same API, so it fails the same
 way.)
 
-The library this code needs is the customized mechanical/optical one, and it is **not
-published**: keep your copy of it next to the other libraries in `libraries/`.
+The library this code needs is the customized mechanical/optical one. Clone it:
+
+```bash
+cd <arduino>/libraries
+git clone https://github.com/djairjr/RotaryDial.git
+```
 
 ## Installation Verification
 
