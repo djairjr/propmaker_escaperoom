@@ -156,6 +156,10 @@ bus with MQTT and HA auto-discovery for the same purpose: so that the **game aut
 (puzzle state, locks, timers, sequences) and the **room automation** (cameras, lights, sound,
 doors) can be managed from a single place, the puzzle being just another device of the room.
 
+The room-level view of this — what the integration is for, what the Home Assistant Green is,
+how the integration works in practice, and how the rooms are organized in HA — is in
+[`docs/HOME_ASSISTANT_IN_ESCAPE_ROOMS.md`](docs/HOME_ASSISTANT_IN_ESCAPE_ROOMS.md).
+
 ---
 
 ## Supported Hardware
