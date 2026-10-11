@@ -18,6 +18,7 @@ Engine library for Escape Room puzzles based on the **Adafruit PropMaker Feather
 - [FreeRTOS](#freertos)
 - [Audio Format](#audio-format)
 - [Troubleshooting](#troubleshooting)
+- [Support](#support)
 
 ---
 
@@ -1135,6 +1136,14 @@ Check that all dependencies are installed (see the [Installation](#installation)
 - Check that `PIN_EXTERNAL_POWER` (GPIO 23) is HIGH
 - `hw.begin()` turns it on automatically, but verify with a multimeter
 - Confirm adequate 5V power for the number of LEDs
+
+---
+
+## Support
+
+This library is maintained by **Nicolau dos Brinquedos** (Djair Guilherme da Silva Junior).
+If it saves you time in a build, you can buy me a coffee:
+<https://buymeacoffee.com/nicolaudosbrinquedos>
 
 ---
 
