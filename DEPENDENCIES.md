@@ -71,7 +71,7 @@ git clone https://github.com/pschatzmann/arduino-libhelix.git
 
 ### RotaryDialUnified (pulse dial) — NOT in the Library Manager
 
-**Why:** `RotaryDialReader` needs the pulse-dial library with this API:
+**Why:** `RotaryDialUnifiedReader` needs the pulse-dial library with this API:
 
 ```cpp
 RotaryDialUnified::begin(pin, ROTARYDIAL_UNIFIED_MECHANICAL | ROTARYDIAL_UNIFIED_OPTICAL);

@@ -20,9 +20,9 @@ namespace propmaker_escaperoom {
  *   - Conecte o outro terminal ao GND
  *   - Use INPUT_PULLUP ou INPUT (dependendo do modelo de telefone)
  */
-class RotaryDialReader {
+class RotaryDialUnifiedReader {
  public:
-  RotaryDialReader() : initialized_(false), lastPin_(0) {}
+  RotaryDialUnifiedReader() : initialized_(false), lastPin_(0) {}
 
   /**
    * Initializes the rotary disk reader in the standard mode (MECHANICAL).

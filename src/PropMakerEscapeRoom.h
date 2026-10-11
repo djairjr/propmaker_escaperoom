@@ -34,7 +34,7 @@
 #include "propmaker_escaperoom/Display14Seg.h"             // Adafruit LED Backpack
 #include "propmaker_escaperoom/Pcf857x.h"                  // IoAbstraction PCF857x wrapper
 #include "propmaker_escaperoom/RotaryEncoder.h"            // GPIO native
-#include "propmaker_escaperoom/RotaryDialReader.h"         // RotaryDial library wrapper
+#include "propmaker_escaperoom/RotaryDialUnifiedReader.h"         // RotaryDial library wrapper
 #include "propmaker_escaperoom/Rs485Bus.h"                   // Serial native
 
 // Core hardware and puzzle framework

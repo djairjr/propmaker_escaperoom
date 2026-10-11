@@ -62,7 +62,7 @@ using namespace propmaker_escaperoom;
 
 #if defined(USE_ROTARY_DIAL) || defined(USE_ROTARY_OPTICAL)
 // Rotary dial (mechanical or optical) via Hardware.h
-RotaryDialReader* rotaryDial = nullptr;
+RotaryDialUnifiedReader* rotaryDial = nullptr;
 
 #elif defined(KEYPAD_GPIO)
 // ============================================================================
@@ -491,7 +491,7 @@ void setup() {
     Serial.println("=========================================");
 
 #if defined(USE_ROTARY_OPTICAL)
-    rotaryDial = hw.createRotaryDialOptical(PHONE_PIN_ROTARY_PULSE,
+    rotaryDial = hw.createRotaryDialUnifiedOptical(PHONE_PIN_ROTARY_PULSE,
                                               ROTARY_DEBOUNCE,
                                               ROTARY_MAXGAP,
                                               ROTARY_DIGITEND);
@@ -505,7 +505,7 @@ void setup() {
         Serial.println("[SETUP] ERROR: Failed to start Optical RotaryDial");
     }
 #elif defined(USE_ROTARY_DIAL)
-    rotaryDial = hw.createRotaryDial(PHONE_PIN_ROTARY_PULSE);
+    rotaryDial = hw.createRotaryDialUnified(PHONE_PIN_ROTARY_PULSE);
     if (rotaryDial) {
         Serial.println("[SETUP] MECHANICAL rotary dial started (Pin 20)");
     } else {

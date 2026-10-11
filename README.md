@@ -56,7 +56,7 @@ Arduino Library Manager:
 - **`arduino-libhelix`** — the MP3 decoder used by the audio pipeline, from
   <https://github.com/pschatzmann/arduino-libhelix>, with the same procedure.
 
-- **`RotaryDialUnified`** — the pulse-dial library behind `RotaryDialReader`
+- **`RotaryDialUnified`** — the pulse-dial library behind `RotaryDialUnifiedReader`
   (`begin(pin, ROTARYDIAL_UNIFIED_MECHANICAL | ROTARYDIAL_UNIFIED_OPTICAL)`, `setDebounce`, `setMaxGap`,
   `setDigitEnd`, `reset`), which reads both the mechanical dial and the optical encoder disc.
   It is **not in the Arduino Library Manager**. The Manager does have a `RotaryDial` (0.0.1) — the

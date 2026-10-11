@@ -280,7 +280,7 @@ The system supports three input modes selected by `#define`:
 |------|--------|----------|---------------|
 | Default | (none) | I2C Keypad (PCF8574/8575) | IoAbstraction |
 | GPIO | `KEYPAD_GPIO` | Direct GPIO Keypad (pins 6-12) | Native class |
-| Rotary | `USE_ROTARY_DIAL` | Rotary dial (pin 20) | RotaryDialReader |
+| Rotary | `USE_ROTARY_DIAL` | Rotary dial (pin 20) | RotaryDialUnifiedReader |
 
 ### Pin Mapping - I2C Keypad
 
@@ -402,7 +402,7 @@ LogicManager master(1);     // ID 1, master mode
 PhonePuzzle phone;          // Puzzle instance
 
 // Pointer to the rotary input (if used)
-RotaryDialReader* rotaryDial = nullptr;
+RotaryDialUnifiedReader* rotaryDial = nullptr;
 
 // Hook state (shared with the ISR)
 volatile bool isHookedGlobal = true;

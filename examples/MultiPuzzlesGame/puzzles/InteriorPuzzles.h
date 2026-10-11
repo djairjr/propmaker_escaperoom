@@ -291,7 +291,7 @@ private:
 // Mechanics: The rotating disc of an old telephone. Each pulse corresponds to a digit.
 // Discard 4 correct digits -> it triggers a message with the order of the wires.
 //
-// Usa RotaryDialReader da biblioteca (ja incluida em PropMakerEscapeRoom.h)
+// Usa RotaryDialUnifiedReader da biblioteca (ja incluida em PropMakerEscapeRoom.h)
 
 class RotaryDialPuzzle : public PuzzleBase {
 public:
