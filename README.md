@@ -1,6 +1,6 @@
 # PropMaker Escape Room Engine (RP2040)
 
-Engine library for Escape Room puzzles based on the **Adafruit PropMaker Feather RP2040** platform.
+Engine library for Escape Room puzzles based on the **Adafruit PropMaker Feather RP2040**(https://learn.adafruit.com/adafruit-rp2040-prop-maker-feather/overview) platform.
 
 [![Version](https://img.shields.io/badge/version-2.0.0-blue)]()
 [![Platform](https://img.shields.io/badge/platform-RP2040-orange)]()
